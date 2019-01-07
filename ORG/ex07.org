@@ -1,0 +1,713 @@
+#+TITLE: Exercise 7: Matrices
+#+AUTHOR:R Ram Kaushik
+#+DATE: 20-03-2018
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+PROPERTY: header-args :exports both :eval no-exports
+#+OPTIONS: toc:nil
+#+OPTIONS: num:1
+#+begin_latex
+%\linespread{1.2}
+#+end_latex
+* Two-dimensional arrays
+- Declare and initialize a $2 \times 3$ two-dimensional
+  array of integers.
+#+LATEX: \linespread{1}
+- Initialize the 2d array.
+#+LATEX: \linespread{1.2}
+- The size of first dimenstion is optional. Initialize the
+  2d array, leaving out the first dimension.
+** Specification
+A function =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array.
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][10], int m, int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of a function =mat_print(int a[][10], int m, int n)=
+which prints the matrix, and =main()=, which calls the function.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C 
+  #include<stdio.h>
+  void mat_print(int a[][10], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ",a[i][j]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+  int main(){
+    int a[2][3]={{1,3,5},{7,9,11}};
+    int b[][3]={{1,2,3},{4,5,6},{7,8,9}};
+    mat_print(a,2,3);
+    mat_print(b,3,3);
+    return 0;
+  }
+
+#+END_SRC
+** Output
+#+RESULTS:
+| 1 | 3 |  5 |
+| 7 | 9 | 11 |
+|   |   |    |
+| 1 | 2 |  3 |
+| 4 | 5 |  6 |
+| 7 | 8 |  9 |
+#+LATEX: \linespread{1}
+#+LATEX: \linespread{1.2}
+
+* Print a matrix on stdout
+Define a function =mat_print()= that prints a matrix. The
+function is passed three parameters: matrix =a[M][N]=, and
+two shape parameters =m= and =n= (number of rows and
+number of columns). The size of the first dimension in
+=a[M][N]= is optional. Test the function from =main()=.
+#+LATEX: \linespread{1}
+#+LATEX: \linespread{1.2}
+** Specification
+A function =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array.
+
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][10], int m, int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of a function =mat_print(int a[][10], int m, int n)=
+which prints the matrix on =stdout=, and =main()=,which gets the input
+from =stdin= and calls the function.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <inputarray.in
+  #include<stdio.h>
+  void mat_print(int a[][10], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ", a[i][j]);
+      }
+      printf("\n");
+    }
+  }
+  int main(){
+    int a[10][10],m,n;
+    scanf("%d%d",&m,&n);
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	scanf("%d",&a[i][j]);
+      }
+    }
+    mat_print(a,m,n);
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+4 3
+7 2 5 3 1 10 9 6 12 8 4 0
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+| 7 | 2 |  5 |
+| 3 | 1 | 10 |
+| 9 | 6 | 12 |
+| 8 | 4 |  0 |
+
+* Read a matrix from stdin
+Define an input format for matrix. The first line
+specifies the number of rows $m$ and columns $n$ of the
+matrix. This is followed by $m$ lines. Each of these $m$
+lines has $n$ numbers. After $m$ lines, the data for
+another matrix may follow. For example, a $3 \times 4$
+matrix and a $4 \times 3$ may be formatted in stdin as
+follows. Test the function from =main()=.
+#+LATEX: \linespread{1}
+#+BEGIN_EXAMPLE
+3 4
+10 20 30 40
+50 60 70 80
+90 100 110 120
+4 3
+1 1 1
+2 2 2
+3 3 3
+4 4 4
+#+END_EXAMPLE
+#+LATEX: \linespread{1.2}
+Define a function =mat_read()= for reading a matrix in
+this format. It has there results: a matrix and the shape
+of the matrix. The shape variables are passed by
+reference. Since matrix is a 2-d array, it is already
+passed by reference. =a= is a constat pointer to an
+integer.
+#+LATEX: \linespread{1}
+** Specification
+2 functions =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array,
+and =mat_read()= which gets the input from =stdin=.
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][20], int m, int n);
+int mat_read(int a[][20], int* m, int* n);
+#+END_EXAMPLE
+** Program Design
+The program consists of 2 functions =mat_print(int a[][20], int m, int n)=
+which prints the matrix, =mat_read(int a[][20],int* m, int* n)= which reads
+the matrix and =main()=, which calls the function.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+def mat_read(a,*m,*n):
+   if(input(m,n)!=EOF):
+      for i in range(m):
+         for j in range(n):
+            input(a[i][j])
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <read.in
+  #include<stdio.h>
+  void mat_print(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ", a[i][j]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+  int mat_read(int a[][20], int* m, int* n){
+    if(scanf("%d%d",m,n)!=EOF){
+      for(int i=0;i<*m;i++){
+	for(int j=0;j<*n;j++){
+	  scanf("%d",&a[i][j]);
+	}
+      }
+      return 1;
+    }
+    else
+      return 0;
+  }
+  int main(){
+    int a[20][20],m,n;
+    while(mat_read(a,&m,&n)!=0){
+      mat_print(a,m,n);
+    }   
+  }
+
+
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+4 3
+12 11 10 9 8 7 6 5 4 3 2 1
+2 2
+13 14 15 16
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+|  12 | 11 | 10 |
+|   9 |  8 |  7 |
+|   6 |  5 |  4 |
+|   3 |  2 |  1 |
+|     |    |    |
+|  13 | 14 |    |
+|  15 | 16 |    |
+
+#+LATEX: \linespread{1.2}
+* Matrix addition
+Write a function =mat_add (a, b, c, m, n)= to add two
+matrices =a= and =b= of shape =m x n=, and leave the
+result in matrix =c=. Test this function and all the
+subsequent functions from =main()=.
+#+LATEX: \linespread{1}
+** Specification
+3 functions =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array,
+ =mat_read()= which gets the input from =stdin=, and =mat_add()=
+which adds the elements of 2 matrices and stores it in a new matrix.
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][10], int m, int n);
+void mat_read(int a[][20], int m, int n);
+void mat_add(int a[][20], int b[][20], int c[][20], int m, int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of 3 functions =mat_print(int a[][20], int m, int n)=
+which prints the matrix, =mat_read(int a[][20],int* m, int* n)= which reads
+the matrix, =mat_add(int a[][20], int b[][20], int c[][20], int m, int n)=
+which adds the elements of the matrices and =main()=, which calls the functions.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+def mat_read(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         input(a[i][j])
+def mat_add(a,b,c,m,n):
+   for i in range(m):
+      for j in range(n):
+         c[i][j]=a[i][j]+b[i][j]
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <add.in
+  #include<stdio.h>
+  void mat_read(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	scanf("%d",&a[i][j]);
+      }
+    }	    
+  }
+  void mat_print(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ", a[i][j]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+  void mat_add(int a[][20], int b[][20], int c[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	c[i][j]=a[i][j]+b[i][j];
+      }
+    }
+    mat_print(c,m,n);
+  }
+  int main(){
+    int a[20][20],b[20][20],c[20][20],m,n;
+    scanf("%d%d",&m,&n);
+    mat_read(a,m,n);
+    mat_read(b,m,n);
+    mat_add(a,b,c,m,n);
+  }
+
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+3 3
+1 2 3 4 5 6 7 8 9
+10 11 12 13 14 15 16 17 18
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+| 11 | 13 | 15 |
+| 17 | 19 | 21 |
+| 23 | 25 | 27 |
+
+#+LATEX: \linespread{1.2}
+* Matrix copy
+Define a function =mat_copy (a, b, m, n)= that copies a
+=m x n= matrix =a= to another matrix =b= of the same
+shape. 
+** Specification
+3 functions =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array,
+ =mat_read()= which gets the input from =stdin=, and =mat_copy()=
+which copies the elements of 1 matrix and stores it in a new matrix.
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][10], int m, int n);
+void mat_read(int a[][20], int m, int n);
+void mat_copy(int a[][20], int b[][20], int m, int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of 3 functions =mat_print(int a[][20], int m, int n)=
+which prints the matrix, =mat_read(int a[][20],int* m, int* n)= which reads
+the matrix, =mat_copy(int a[][20], int b[][20], int m, int n)= which copies 
+the elements of the matrix and =main()=, which calls the functions.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+def mat_read(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         input(a[i][j])
+def mat_copy(a,b,m,n):
+   for i in range(m):
+      for j in range(n):
+         b[i][j]=a[i][j]
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <copy.in
+  #include<stdio.h>
+  void mat_read(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	scanf("%d",&a[i][j]);	    
+      }
+    }
+  }
+  void mat_print(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ", a[i][j]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+  void mat_copy(int a[][20], int b[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	b[i][j]=a[i][j];
+      }
+    }
+    mat_print(b,m,n);
+  }
+  int main(){
+    int a[20][20],b[20][20],m,n;
+    scanf("%d%d",&m,&n);
+    mat_read(a,m,n);
+    mat_copy(a,b,m,n);
+  
+  }
+
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+3 3
+1 3 5 2 4 6 8 7 9
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+|  1 | 3 | 5 |
+|  2 | 4 | 6 |
+|  8 | 7 | 9 |
+
+#+LATEX: \linespread{1}
+#+LATEX: \linespread{1.2}
+* Matrix scale
+Write a function =mat_scale (a, b, m, n, f)= that maps
+every item of a =m x n= matrix =a= by multiplying it by it
+by a factor =f= and assignes the result to a matrix =b=. 
+#+BEGIN_EXAMPLE
+mat_scale (a, f, b)
+  for i := 0 to m-1
+    for j := 0 to n-1
+       b[j,i] := f * a[i,j]
+#+END_EXAMPLE
+** Specification
+3 functions =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array,
+ =mat_read()= which gets the input from =stdin=, and =mat_scale()=
+which multiplies the elements of 1 matrix and stores it in a new matrix.
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][10], int m, int n);
+void mat_read(int a[][20], int m, int n);
+void mat_scale(int a[][20], int b[][20], int m, int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of 3 functions =mat_print(int a[][20], int m, int n)=
+which prints the matrix, =mat_read(int a[][20],int* m, int* n)= which reads
+the matrix, =mat_scale(int a[][20], int b[][20], int m, int n)= which multiplies 
+the elements of the matrix and =main()=, which calls the functions.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+def mat_read(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         input(a[i][j])
+def mat_scale(a,b,m,n,f):
+   for i in range(m):
+      for j in range(n):
+         b[i][j]=f*a[i][j]
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <scale.in
+  #include<stdio.h>
+  void mat_read(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	scanf("%d",&a[i][j]);
+      }
+    }	    
+  }
+  void mat_print(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ", a[i][j]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+  void mat_scale(int a[][20], int b[][20], int m, int n, int f){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	b[i][j]=f*a[i][j];
+      }
+    }
+    mat_print(b,m,n);
+  }
+  int main(){
+    int a[20][20],b[20][20],m,n,f;
+    scanf("%d%d",&m,&n);
+    mat_read(a,m,n);
+    scanf("%d",&f);
+    mat_scale(a,b,m,n,f);
+  
+  }
+
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+3 3
+1 3 5 2 4 6 9 7 8
+4
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+|  4 | 12 | 20 |
+|  8 | 16 | 24 |
+| 36 | 28 | 32 |
+
+#+LATEX: \linespread{1.2}
+* Matrix transpose
+Define a function =mat_transpose (a, b, m, n)= that
+assigns the transpose of a =m x n= matrix =a= to matrix
+=b=. 
+
+The algorithm for transposing a matrix is
+#+LATEX: \linespread{1}
+#+BEGIN_EXAMPLE
+mat_transpose (a, b)
+  for i := 0 to m-1
+    for j := 0 to n-1
+       b[j,i] := a[i,j]
+#+END_EXAMPLE
+#+LATEX: \linespread{1.2}
+It takes two parameters: an input matrix =a= and an output
+matrix =b= in which the result is stored.  Thus, the
+function intends to use =a= as a read parameter and =b= as
+a write paratemeter.
+#+LATEX: \linespread{1}
+#+LATEX: \linespread{1.2}
+However, since arrays are passed by reference, actually
+both =a= and =b= are writeable. If someone calls the
+function as
+#+BEGIN_EXAMPLE
+mat_transpose (a, a, m, n)  
+#+END_EXAMPLE
+in which =a= is read and written, the specification will
+not be satisfied.  To avoid =a= being used for read and
+write simultaneously, we have to use a temporary matrix to
+store the transpose and, after the transpose is
+constructed completely, copy it in the output array.
+** Specification
+3 functions =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array,
+ =mat_read()= which gets the input from =stdin=, and =mat_transpose()=
+which transposes the elements of 1 matrix and stores it in a new matrix.
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][10], int m, int n);
+void mat_read(int a[][20], int m, int n);
+void mat_transpose(int a[][20], int b[][20], int m, int n);
+#+END_EXAMPLE
+** Program Design
+The program consists of 3 functions =mat_print(int a[][20], int m, int n)=
+which prints the matrix, =mat_read(int a[][20],int* m, int* n)= which reads
+the matrix, =mat_transpose(int a[][20], int b[][20], int m, int n)= which 
+transposes the elements of the matrix and =main()=, which calls the functions.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+def mat_read(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         input(a[i][j])
+def mat_transpose(a,b,m,n):
+   for i in range(m):
+      for j in range(n):
+         b[j][i]=a[i][j]
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <transpose.in
+  #include<stdio.h>
+  void mat_read(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	scanf("%d",&a[i][j]);	    
+      }
+    }
+  }
+  void mat_print(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ", a[i][j]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+  void mat_transpose(int a[][20], int b[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	b[j][i]=a[i][j];
+      }
+    }
+    mat_print(b,m,n);
+  }
+  int main(){
+    int a[20][20],b[20][20],m,n;
+    scanf("%d%d",&m,&n);
+    mat_read(a,m,n);
+    mat_transpose(a,b,m,n);
+  
+  }
+
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+3 3
+1 3 5 2 4 6 8 7 9
+#+END_EXAMPLE
+** Ouput
+#+RESULTS:
+|  1 | 2 | 8 |
+|  3 | 4 | 7 |
+|  5 | 6 | 9 |
+
+#+LATEX: \linespread{1}
+#+LATEX: \linespread{1.2}
+* Matrix multiplication
+Define a function =mat_mul (a, b, c, m, n, p)= that
+multplies an =m x n= matrix =a= and an =n x p= matrix =b=
+and assigns the result to a =m x p= matrix =c=.
+
+The algorithm for matrix multiplication is as follows.
+#+LATEX: \linespread{1}
+#+BEGIN_EXAMPLE
+matrix_add (a, b, c)
+  for i := 0 to m-1
+    for j := 0 to p-1
+       // dot product of row i and column j
+       c[i,j] := 0;
+       for k := 0 to n-1:
+          c[i,j] := a[i,k] + b [k,j]
+#+END_EXAMPLE
+#+LATEX: \linespread{1.2}
+To avoid writing =a= or =b=, produce the result in a
+temporary array =d=, and after the result is completely
+produced, save it in =c=.
+** Specification
+3 functions =mat_print()=, which takes an 2-D array =a[][]=,
+and its dimensions =m=, =n= as inputs and prints the array,
+ =mat_read()= which gets the input from =stdin=, and =mat_multiplication()=
+which multiplies the elements of 2 matrices and stores it in a new matrix.
+** Prototype
+#+BEGIN_EXAMPLE
+void mat_print(int a[][10], int m, int n);
+void mat_read(int a[][20], int m, int n);
+void mat_multiplication(int a[][20], int b[][20], int c[][20], int m, int n, int p);
+#+END_EXAMPLE
+** Program Design
+The program consists of 3 functions =mat_print(int a[][20], int m, int n)=
+which prints the matrix, =mat_read(int a[][20],int* m, int* n)= which reads
+the matrix, =mat_multiplication(int a[][20], int b[][20],int c[][20] int m, int n, int p)=
+which multiplies the elements of 2 matrices and stores it in a new matrix, and =main()=,
+which calls the functions.
+** Algorithm
+#+BEGIN_EXAMPLE
+def mat_print(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         print(a[i][j])
+def mat_read(a,m,n):
+   for i in range(m):
+      for j in range(n):
+         input(a[i][j])
+def mat_multiplication(a,b,c,m,n,p):
+   for i in range(m):
+      for j in range(p):
+         c[i][j]=0
+         for k in range(n)
+            c[i][j]+=a[i][k]*b[k][j]
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <multiply.in
+  #include<stdio.h>
+  void mat_read(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	scanf("%d",&a[i][j]);	    
+      }
+    }
+  }
+  void mat_print(int a[][20], int m, int n){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<n;j++){
+	printf("%d ", a[i][j]);
+      }
+      printf("\n");
+    }
+    printf("\n");
+  }
+  void mat_multiplication(int a[][20], int b[][20], int c[][20], int m, int n, int p){
+    for(int i=0;i<m;i++){
+      for(int j=0;j<p;j++){
+	c[i][j]=0;
+	for(int k=0;k<n;k++){
+	  c[i][j]+=a[i][k]*b[k][j];
+	}
+      }
+    }
+    mat_print(c,m,n);
+  }
+  int main(){
+    int a[20][20],b[20][20],c[20][20],m,n,p;
+    scanf("%d%d%d",&m,&n,&p);
+    mat_read(a,m,n);
+    mat_read(b,n,p);
+    mat_multiplication(a,b,c,m,n,p);
+  }
+
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+4 3 3
+1 2 3 4 5 6 7 8 9 10 11 12
+9 8 7 6 5 4 3 2 1
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+|  30 |  24 |  18 |
+|  84 |  69 |  54 |
+| 138 | 114 |  90 |
+| 192 | 159 | 126 |
+
+#+LATEX: \linespread{1}

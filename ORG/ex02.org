@@ -1,0 +1,471 @@
+#+TITLE: Exercise 2: Expressions, Variables, Assignment
+#+AUTHOR:R Ram Kaushik
+#+DATE: 13-02-2018
+#+LaTeX_HEADER: \usepackage{palatino}
+#+LaTeX_HEADER: \usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+#+LaTeX_HEADER: \usepackage{setspace}
+#+PROPERTY: header-args :exports both :eval no-exports
+#+OPTIONS: toc:nil
+#+OPTIONS: num:1
+#+begin_latex
+%\linespread{1.2}
+#+end_latex
+* Area and Perimeter of circle
+Write a program to calculate the area and the perimeter of a circle. Read the radius from 
+the user and print the outputs on the display.
+** Specification
+A function =area()=, which takes the radius =r= of the circle as 
+input and returns the area, =perimeter()=, which takes the radius =r=
+of the circle as input and returns the perimeter.
+** Prototype
+#+BEGIN_EXAMPLE
+float area(float r);
+float perimeter(float r);
+#+END_EXAMPLE
+** Program Design
+The program consists of the 2 functions =area(float r)= which finds the area 
+of the circle, =perimeter(float r)= which finds the perimeter of the circle,
+and =main()= which reads the input from =stdin=, calls the functions and prints 
+the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def area(r):
+   return 3.14*r*r
+def perimeter
+   return 2*3.14*r
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <arper.in
+  #include<stdio.h>
+  float area(float r){
+    return 3.14*r*r;
+  }
+  float perimeter(float r){
+    return 2*3.14*r;
+  }
+  int main(){
+    float r,ar,p;
+    scanf("%f",&r);
+    ar=area(r);
+    p=perimeter(r);
+    printf("%f %f %f",r,ar,p);
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+15
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+|15.000000| |706.500000| |94.199997|
+
+* Leap Year 
+Write a Boolean function =is_leap()= for testing whether a year is leap year or not. 
+Test the function from =main()=.
+** Specification
+A function =is_leap()=, which takes the =year= as input and returns either =true=
+ or =false= in bool.
+** Prototype
+#+BEGIN_EXAMPLE
+bool is_leap(int year);
+#+END_EXAMPLE
+** Program Design
+The program consists of a function =is_leap(int year)= which returns =true= if the 
+year is leap and returns =false= if the year is not leap and =main()= which gets the
+input from =stdin=,calls the function and prints the value on =stdout=. 
+** Algorithm
+#+BEGIN_EXAMPLE
+def is_leap(year):
+   if year%4==0 and year%100!=0 or year%400==0:
+      return true
+   else:
+      return false
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <leap.in
+  #include<stdio.h>
+  #include<stdbool.h>
+  bool is_leap(int year){
+    if (year%4==0 && year%100!=0 ||year%400==0)
+      return true;
+    else
+      return false;
+  }
+  int main(){
+    int year,leap;
+    while(scanf("%d",&year)!=EOF){
+      leap=is_leap(year);
+      printf("%d\n",leap);
+    }
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+2009
+2000
+1900
+1936
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+| 0 |
+| 1 |
+| 0 |
+| 1 |
+* Roots of Quadratic equation
+Read the coefficients =a=, =b=, and =c= of a quadratic equation. Calculate the discriminant.  
+Define a function =sign()= that returns -1 or 0 or 1 for a negative number, zero or a 
+positive number, respectively. Use it to test the discriminant. If the discriminant is 
+non-negative, find the roots of the equation, and print them. Avoid duplicate calculations 
+wherever possible.
+** Specification
+A function =sign()=, which takes =n= as the input and returns the sign of it.
+** Prototype
+#+BEGIN_EXAMPLE
+int sign(int n);
+#+END_EXAMPLE           
+** Program Design
+The program consists of the function =sign(int n)= which returns the sign based on the number,
+and =main()= which gets the input from =stdin=,calls the function =sign(n)= and prints the 
+result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def sign(n):
+   if n>0:
+      return 1
+   elif n==0:
+      return 0
+   return -1
+roots=(-b+d)/2a,(-b-d)/2a
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <quad.in
+  #include<stdio.h>
+  #include<math.h>
+  int sign(int n){
+    if (n>0){
+      return 1;
+    }
+    else if(n==0){
+      return 0;
+    }
+    else{
+      return -1;
+    }
+  }
+  int main(){
+    int a,b,c,m,det;
+    float r1,r2;
+    while(scanf("%d%d%d",&a,&b,&c)!=EOF){
+      det=(b*b)-(4*a*c);
+      m=sign(det);
+      if (m==1){
+	r1=(-b+sqrt(det))/(2*a);
+	r2=(-b-sqrt(det))/(2*a);
+	printf("%f %f",r1,r2);
+      }
+      else if(m==0){
+	r1=-b/(2*a);
+	printf("%f",r1);
+      }
+      else{
+	printf("imaginary roots");
+      }
+    }
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+1 -2 1
+1 -3 2
+1 1 1
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+|1.000000|
+|2.000000| |1.000000|
+|imaginary roots|
+* Distance between 2 points
+Write a program to compute the distance between two points. To read a point, the program 
+should read 2 numbers from the user for the =x= and =y= coordinates. Hence your program 
+should read numbers for the two points. Print the output on the stdout. Implement a 
+function =distance(x1, y1, x2, y2)= that takes two points =(x1, y1)= and =(x2, y2)= as 4 
+parameters and returns the distance between the two points. Avoid duplicate calculations 
+wherever possible.
+** Specification
+A function =distance()= which takes the coordinates of 2 points as inputsin int and returns the 
+distance between them.
+** Prototype
+#+BEGIN_EXAMPLE
+float distance(int x1,int y1,int x2,int y2);
+#+END_EXAMPLE
+** Program Design
+The program consists of the functions =distance(int x1,int y1,int x2,int y2)= which returns the 
+distance between the points (x1,y1) and (x2,y2) and =main()= which gets the inputs from =stdin=,
+calls the function and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def distance(x1,y1,x2,y2):
+   d=sqrt(pow(x1-x2,2)+pow(y1-y2,2))
+   return d
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <dist.in
+  #include<stdio.h>
+  #include<math.h>
+  float distance(int x1,int y1 ,int x2,int y2){
+    float d;
+    d=sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+    return d;
+  }
+  int main(){
+    int x1,x2,y1,y2;
+    float d;
+    scanf("%d%d%d%d",&x1,&y1,&x2,&y2);
+    d=distance(x1,y1,x2,y2);
+    printf("%f",d);
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+5 6
+1 2
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+|5.656854|
+* Swap two variables.
+Initialize two variables with values read from the user and exchange (swap) their contents. 
+Print them before and after the swap.
+** Specification
+A function which swaps the 2 numbers.
+** Program Design
+The program consists of =main()= which gets the input from =stdin=, swaps them and prints them 
+on =stdout=.     
+** Algorithm
+#+BEGIN_EXAMPLE
+t=a
+a=b
+b=t
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <swap.in
+  #include <stdio.h>
+  int main (){
+    int a,b,t;
+    scanf ("%d%d", &a, &b);
+    t = a;
+    a = b;
+    b = t;
+    printf ("%d %d\n", a, b);  
+    return 0;
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+5 10
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: 10 5
+* Swap using function
+Define a function =swap()= to exchange the contents of the two variables, and check whether 
+the function works as intended. If it does not work, what is the reason?
+** Specification
+A function =swap()= takes two numbers as inputs and returns the numbers after swapping them.
+** Prototype
+#+BEGIN_EXAMPLE
+int swap(int* a, int* b);
+#+END_EXAMPLE
+** Program Description
+The program contains a function =swap(int* a, int* b)=, which swaps the numbers and =main()=
+which gets the input from =stdin=, calls the function and prints the output on =stdout=
+** Algorithm
+#+BEGIN_EXAMPLE
+def swap(a, b):
+   a,b=b,a
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <swap.in
+  #include<stdio.h>
+  void swap(int* a,int* b){
+    int t=*a;
+    *a=*b;
+    *b=t;
+  }
+  int main(){
+    int a,b;
+    scanf("%d%d",&a,&b);
+    swap(&a,&b);
+    printf("%d %d\n",a,b);
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+5 10
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: 10 5
+* Circulate numbers
+Read four numbers =a, b, c, d= from stdin. Circulate them so that a gets the value of b, 
+and so on: =a <- b <- c <- d <- a=
+** Specification
+A function that circulates the numbers.
+** Program Design
+ The program consists of  =main()= which gets the input from =stdin=, circulates them in the 
+way =a <- b <- c <- d <- a= and prints the numbers on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+t=a1;
+a1=a2;
+a2=a3;
+.
+.
+.
+a_(n-1)=a_n;
+a_n=t;
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <circle.in
+  #include <stdio.h>
+  int main (){
+    int a, b, c, d,t;
+    scanf ("%d%d%d%d", &a, &b, &c, &d);
+    t = a;
+    a = b;
+    b = c;
+    c = d;
+    d = t;
+    printf ("%d %d %d %d\n", a, b, c, d);
+    return 0;
+  }     
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+1 -3 2 6
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: -3 2 6 1
+
+* Rearrange three numbers 
+Read three numbers =a, b, c= from stdin. Write a program to rearrange them so that 
+=a $\le$ b $\le$ c=.
+** Specification
+2 functions =min2()=, which takes two integers as input  and returns the minimum of the two
+and =min3()=, which takes three integers as inputs and returns the minimum of the three.
+** Prototype
+#+BEGIN_EXAMPLE
+int min2(int a,int b);
+int min3(int a,int b,int c);
+#+END_EXAMPLE 
+** Program Design
+The program consists of the functions =min2(a,b)= which returns minimum of two numbers, =min3(a,b,c)=
+which returns minimum of three numbers and =main()= which gets inputs from =stdin=, calls the 
+function and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def min2(a,b):
+   if a<=b:
+      return a
+   return b
+def min3(a,b,c):
+   t=min2(a,b)
+   return min2(t,c)
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <rearr.in
+  #include<stdio.h>
+  int min2(int a,int b){
+    if(a<=b){
+      return a;
+    }
+    return b;
+  }
+  int min3(int a, int b, int c){
+    int temp=min2(a,b);
+    return min2(temp,c);
+  }
+  int main(){
+    int a,b,c,s,p;
+    scanf("%d%d%d",&a,&b,&c);
+    p=a+b;
+    s=a+b+c;
+    a=min3(a,b,c);
+    b=p-a;
+    c=s-(a+b);
+    printf("%d %d %d",a,b,c);
+  }
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+1 -3 2
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: -3 1 2
+
+* Rearrange numbers in an array
+Fill an array of 3 numbers with numbers read from stdin. Write a program to rearrange 
+them so that =a[0] $\le$ a[1] $\le$ a[2]=
+** Specification
+2 functions =min2()=, which takes two integers as input  and returns the minimum of the two
+and =min3()=, which takes three integers as inputs and returns the minimum of the three.
+** Prototype
+#+BEGIN_EXAMPLE
+int min2(int a,int b);
+int min3(int a,int b,int c);
+#+END_EXAMPLE 
+** Program Design
+The program consists of the functions =min2(a,b)= which returns minimum of two numbers, =min3(a,b,c)=
+which returns minimum of three numbers and =main()= which gets inputs from =stdin=, calls the 
+function and prints the result on =stdout=.
+** Algorithm
+#+BEGIN_EXAMPLE
+def min2(a,b):
+   if a<=b:
+      return a
+   return b
+def min3(a,b,c):
+   t=min2(a,b)
+   return min2(t,c)
+#+END_EXAMPLE
+** Source Code
+#+BEGIN_SRC C :cmdline <rearrarr.in
+#include<stdio.h>
+int swap(int* a,int* b){
+   int t=*a;
+   *a=*b;
+   *b=t;
+}
+int main(){
+   int a[5],s=0,p;
+   for(int i=0;i<3;i++){
+      scanf("%d",&a[i]);
+      s+=a[i];
+   }
+   if(a[0]>a[1]){
+     swap(&a[0],&a[1]);
+   }
+   if(a[1]>a[2]){
+     swap(&a[1],&a[2]);
+   }
+   if(a[0]>a[1]){
+     swap(&a[0],&a[1]);
+   }
+   for(int i=0;i<3;i++){
+      printf("%d ",a[i]);
+   }
+}
+#+END_SRC
+** Test Input
+#+BEGIN_EXAMPLE
+23 52 13
+#+END_EXAMPLE
+** Output
+#+RESULTS:
+: 13 23 52
+     
+
+
